@@ -32,10 +32,6 @@ public class principal {
                 String password = String.valueOf(passwordField1.getPassword());
                 String tipo = comboBox1.getSelectedItem().toString();
 
-                Document doc = new Document("name", nombre)
-                                    .append("password", password)
-                                    .append("tipo",tipo);
-
                 try {
                     // para buscar con un nombre en especifico
                     Bson query = Filters.and(Filters.eq("name", nombre),
