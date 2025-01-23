@@ -13,6 +13,7 @@ public class principal {
     private JButton guardarButton;
     private JTextField textField1;
     private JPasswordField passwordField1;
+    private JButton registrarButton;
 
     public principal() {
         guardarButton.addActionListener(new ActionListener() {
@@ -26,7 +27,7 @@ public class principal {
                 MongoCollection<Document> collection = database.getCollection("usuarios");
                 // Crear un documento
 
-                Document doc = new Document("name", textField1.getText()) .append("age", 30) ;
+                Document doc = new Document("name", textField1.getText()).append("contraseña", passwordField1.getText()) ;
                 // Insertar el documento en la colección
                 collection.insertOne(doc);
                 // Cerrar la conexión
