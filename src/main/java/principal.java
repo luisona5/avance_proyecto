@@ -16,7 +16,7 @@ public class principal {
     private JButton registrarButton;
 
     public principal() {
-        guardarButton.addActionListener(new ActionListener() {
+        registrarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
 
