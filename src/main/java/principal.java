@@ -32,7 +32,9 @@ public class principal {
                 String password = String.valueOf(passwordField1.getPassword());
                 String tipo = comboBox1.getSelectedItem().toString();
 
-                Document doc = new Document("name", nombre) .append("password", password).append("tipo",tipo);
+                Document doc = new Document("name", nombre)
+                                    .append("password", password)
+                                    .append("tipo",tipo);
 
                 try {
                     // para buscar con un nombre en especifico
@@ -40,12 +42,12 @@ public class principal {
                                                     Filters.eq("password",password),
                                                     Filters.eq("tipo",tipo));
 
-                    // Ejecutar la query y obtener el primer resultado
+                    // devolviendo el resultado
                     FindIterable<Document> results = collection.find(query);
-                    Document user = results.first();
+                    Document encontrar = results.first();
 
                     // Si se encuentra un resultado, el usuario ya existe
-                    if (user != null) {
+                    if (encontrar != null) {
                         JOptionPane.showMessageDialog(ven_Princ, "Usuario ya existe");
                     } else {
                         // Si no se encuentra ningún resultado, el usuario no existe, redireccionar al formulario de registro
