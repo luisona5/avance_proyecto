@@ -29,9 +29,17 @@ public class principal {
 
                 Document doc = new Document("name", nombre) .append("password", password);
 
-                try{
-                    collection.find(doc);
-                    JOptionPane.showMessageDialog(ven_Princ, "Usuario ya existente");
+                try {
+                    // Buscar al usuario en la base de datos
+                    long count = collection.countDocuments(doc);
+
+                    // Si el conteo es mayor a 0, el usuario ya existe
+                    if (count > 0) {
+                        JOptionPane.showMessageDialog(ven_Princ, "Usuario ya existe");
+                    } else {
+                        JOptionPane.showMessageDialog(ven_Princ, "no existen registros");
+
+                    }
                 } catch (Exception ex) {
                     throw new RuntimeException(ex);
                 }
