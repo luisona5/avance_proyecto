@@ -45,9 +45,19 @@ public class principal {
                     // Si se encuentra un resultado, el usuario ya existe
                     if (encontrar != null) {
                         JOptionPane.showMessageDialog(ven_Princ, "Usuario ya existe");
+
                     } else {
-                        // Si no se encuentra ningún resultado, el usuario no existe, redireccionar al formulario de registro
+                        // Si no encuentra nada avisa q no existe
                         JOptionPane.showMessageDialog(ven_Princ, "Usuario no existe");
+
+                        // Panel del registro
+                        JFrame frame=new JFrame("Belleza Spa--POO");
+                        frame.setContentPane(new registro().registroUsuario);
+                        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                        frame.setSize(1080,750);
+                        frame.setPreferredSize(new Dimension(400,400));
+                        frame.pack();
+                        frame.setVisible(true);
                     }
                 } catch (Exception ex) {
                     // Manejar la excepción de forma adecuada

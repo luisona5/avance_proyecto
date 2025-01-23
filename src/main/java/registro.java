@@ -9,4 +9,5 @@ public class registro {
     private JTextField textField6;
     private JButton ingresarButton;
     public JPanel registroUsuario;
+    private JPasswordField passwordField1;
 }
