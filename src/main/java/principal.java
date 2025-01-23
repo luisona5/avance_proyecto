@@ -57,7 +57,7 @@ public class principal {
 
 
                 // Insertar el documento en la colección
-                collection.insertOne(doc);
+
                 // Cerrar la conexión
                 mongoClient.close();
                 System.out.println("Documento insertado en MongoDB.");
