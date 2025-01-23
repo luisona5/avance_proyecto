@@ -1,7 +1,10 @@
 import com.mongodb.client.*;
+import com.mongodb.client.model.Filters;
 import org.bson.Document;
+import org.bson.conversions.Bson;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -11,6 +14,7 @@ public class principal {
     private JTextField textField1;
     private JPasswordField passwordField1;
     private JButton registrarButton;
+    private JComboBox comboBox1;
 
     public principal() {
         iniciarButton.addActionListener(new ActionListener() {
@@ -26,28 +30,36 @@ public class principal {
 
                 String nombre = textField1.getText();
                 String password = String.valueOf(passwordField1.getPassword());
+                String tipo = comboBox1.getSelectedItem().toString();
 
-                Document doc = new Document("name", nombre) .append("password", password);
+                Document doc = new Document("name", nombre) .append("password", password).append("tipo",tipo);
 
                 try {
-                    // Buscar al usuario en la base de datos
-                    long count = collection.countDocuments(doc);
+                    // para buscar con un nombre en especifico
+                    Bson query = Filters.and(Filters.eq("name", nombre),
+                                                    Filters.eq("password",password),
+                                                    Filters.eq("tipo",tipo));
 
-                    // Si el conteo es mayor a 0, el usuario ya existe
-                    if (count > 0) {
+                    // Ejecutar la query y obtener el primer resultado
+                    FindIterable<Document> results = collection.find(query);
+                    Document user = results.first();
+
+                    // Si se encuentra un resultado, el usuario ya existe
+                    if (user != null) {
                         JOptionPane.showMessageDialog(ven_Princ, "Usuario ya existe");
                     } else {
-                        JOptionPane.showMessageDialog(ven_Princ, "no existen registros");
-
+                        // Si no se encuentra ningún resultado, el usuario no existe, redireccionar al formulario de registro
+                        JOptionPane.showMessageDialog(ven_Princ, "Usuario no existe");
                     }
                 } catch (Exception ex) {
-                    throw new RuntimeException(ex);
+                    // Manejar la excepción de forma adecuada
+                    JOptionPane.showMessageDialog(null, "Error al verificar el usuario: " + ex.getMessage());
                 }
 
 
 
                 // Insertar el documento en la colección
-                //collection.insertOne(doc);
+                collection.insertOne(doc);
                 // Cerrar la conexión
                 mongoClient.close();
                 System.out.println("Documento insertado en MongoDB.");
